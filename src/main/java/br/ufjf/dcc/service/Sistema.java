@@ -4,15 +4,18 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
+import br.ufjf.dcc.model.Carona;
 import br.ufjf.dcc.model.Endereco;
 import br.ufjf.dcc.model.GerenciadorCaronas;
 import br.ufjf.dcc.model.Motorista;
 import br.ufjf.dcc.model.Passageiro;
 import br.ufjf.dcc.model.Pessoa;
 import br.ufjf.dcc.model.Veiculo;
+import br.ufjf.dcc.model.enums.StatusCarona;
 import br.ufjf.dcc.model.enums.TipoLogradouro;
 import br.ufjf.dcc.util.csv.ConversorMotoristaCSV;
 import br.ufjf.dcc.util.csv.LeitorCSV;
@@ -66,6 +69,8 @@ public class Sistema {
 
     public void iniciar() {
         while (executando) {
+
+			atualizarSistema();
 
             this.exibirMenu();
 
@@ -562,19 +567,47 @@ public class Sistema {
     }
 
     private void listarCaronasAgendadas() {
-		this.gerenciadorCaronas.listarCaronas(this.gerenciadorCaronas.getCaronasAgendadas());
+        this.gerenciadorCaronas.listarCaronas(this.gerenciadorCaronas.getCaronasAgendadas());
     }
 
     private void listarCaronasEmAndamento() {
-		this.gerenciadorCaronas.listarCaronas(this.gerenciadorCaronas.getCaronasEmAndamento());
+        this.gerenciadorCaronas.listarCaronas(this.gerenciadorCaronas.getCaronasEmAndamento());
     }
 
     private void listarCaronasFinalizadas() {
-		this.gerenciadorCaronas.listarCaronas(this.gerenciadorCaronas.getCaronasFinalizadas());
+        this.gerenciadorCaronas.listarCaronas(this.gerenciadorCaronas.getCaronasFinalizadas());
     }
 
     private void atualizarSistema() {
+        LocalDateTime agora = LocalDateTime.now();
 
+        Iterator<Carona> iteratorAgendadas = this.gerenciadorCaronas.getCaronasAgendadas().iterator();
+
+        while (iteratorAgendadas.hasNext()) {
+            Carona carona = iteratorAgendadas.next();
+
+            if (!agora.isBefore(carona.getInicio())) {
+                carona.setStatus(StatusCarona.EM_ANDAMENTO);
+
+                this.gerenciadorCaronas.getCaronasEmAndamento().add(carona);
+
+                iteratorAgendadas.remove();
+            }
+        }
+
+        Iterator<Carona> iteratorAndamento = this.gerenciadorCaronas.getCaronasEmAndamento().iterator();
+
+        while (iteratorAndamento.hasNext()) {
+            Carona carona = iteratorAndamento.next();
+
+            if (!agora.isBefore(carona.getFim())) {
+                carona.setStatus(StatusCarona.FINALIZADA);
+
+                this.gerenciadorCaronas.getCaronasFinalizadas().add(carona);
+
+                iteratorAndamento.remove();
+            }
+        }
     }
 
     private void encerrarSistema() {
