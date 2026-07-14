@@ -491,7 +491,13 @@ public class Sistema {
     }
 
     public void removerPassageiro() {
+        Passageiro passageiro = this.selecionarPassageiro();
 
+        if (passageiro != null) {
+            this.passageiros.remove(passageiro);
+
+            System.out.println("Passageiro removido com sucesso.");
+        }
     }
 
     public void listarPassageiros() {
