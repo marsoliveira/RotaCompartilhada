@@ -71,7 +71,7 @@ public class Veiculo {
 	}
 
 	public boolean validarAnoFabricacao(int anoFabricacao) {
-		return anoFabricacao < LIM_ANO_FABRICACAO;
+		return anoFabricacao >= LIM_ANO_FABRICACAO;
 	}
 
 	public void exibirDados() {
