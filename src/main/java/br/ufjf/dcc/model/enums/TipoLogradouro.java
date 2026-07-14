@@ -18,7 +18,7 @@ public enum TipoLogradouro {
     VIELA("Viela"),
     PASSARELA("Passarela");
 
-	private final String descricao;
+    private final String descricao;
 
     TipoLogradouro(String descricao) {
         this.descricao = descricao;
@@ -26,5 +26,16 @@ public enum TipoLogradouro {
 
     public String getDescricao() {
         return descricao;
+    }
+
+    public static TipoLogradouro converterTipoLogradouroParaString(String descricao) {
+
+        for (TipoLogradouro tipo : values()) {
+            if (tipo.getDescricao().equalsIgnoreCase(descricao)) {
+                return tipo;
+            }
+        }
+
+        throw new IllegalArgumentException("Tipo de logradouro inválido: " + descricao);
     }
 }
