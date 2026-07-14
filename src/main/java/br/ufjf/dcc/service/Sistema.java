@@ -416,7 +416,7 @@ public class Sistema {
     }
 
     public void listarMotoristas() {
-
+        this.listarPessoas(motoristas, "Motorista(s)");
     }
 
     public void cadastrarPassageiro() {
