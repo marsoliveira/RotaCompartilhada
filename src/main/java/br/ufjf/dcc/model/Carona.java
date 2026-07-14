@@ -21,7 +21,6 @@ public class Carona {
 		this.destino = destino;
 		this.inicio = inicio;
 		this.fim = fim;
-		this.status = StatusCarona.AGENDADA;
 	}
 
 	public void setMotorista(Motorista motorista) {
