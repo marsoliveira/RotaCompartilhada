@@ -220,7 +220,7 @@ public class Sistema {
         return selecionarPessoa(this.passageiros, "Passageiro(s)");
     }
 
-    public TipoLogradouro escolherTipoLogradouro() {
+    private TipoLogradouro escolherTipoLogradouro() {
         System.out.println("1. " + TipoLogradouro.RUA.getDescricao());
         System.out.println("2. " + TipoLogradouro.AVENIDA.getDescricao());
         System.out.println("3. " + TipoLogradouro.ALAMEDA.getDescricao());
@@ -336,7 +336,7 @@ public class Sistema {
         return veiculo;
     }
 
-    public void cadastrarMotorista() {
+    private void cadastrarMotorista() {
         String nome = lerTexto("Nome: ");
         String cpf = lerTexto("CPF: ");
 
@@ -351,13 +351,13 @@ public class Sistema {
         System.out.println("Motorista cadastrado com sucesso.");
     }
 
-    public void exibirMotorista() {
+    private void exibirMotorista() {
         Motorista motorista = this.selecionarMotorista();
 
         motorista.exibirDados();
     }
 
-    public void editarMotorista() {
+    private void editarMotorista() {
         Motorista motorista = this.selecionarMotorista();
 
         if (motorista != null) {
@@ -408,7 +408,7 @@ public class Sistema {
         }
     }
 
-    public void removerMotorista() {
+    private void removerMotorista() {
         Motorista motorista = this.selecionarMotorista();
 
         if (motorista != null) {
@@ -418,11 +418,11 @@ public class Sistema {
         }
     }
 
-    public void listarMotoristas() {
+    private void listarMotoristas() {
         this.listarPessoas(motoristas, "Motorista(s)");
     }
 
-    public void cadastrarPassageiro() {
+    private void cadastrarPassageiro() {
         String nome = lerTexto("Nome: ");
         String cpf = lerTexto("CPF: ");
 
@@ -435,13 +435,13 @@ public class Sistema {
         System.out.println("Passageiro cadastrado com sucesso.");
     }
 
-    public void exibirPassageiro() {
+    private void exibirPassageiro() {
         Passageiro passageiro = this.selecionarPassageiro();
 
         passageiro.exibirDados();
     }
 
-    public void editarPassageiro() {
+    private void editarPassageiro() {
         Passageiro passageiro = this.selecionarPassageiro();
 
         if (passageiro != null) {
@@ -487,7 +487,7 @@ public class Sistema {
         }
     }
 
-    public void removerPassageiro() {
+    private void removerPassageiro() {
         Passageiro passageiro = this.selecionarPassageiro();
 
         if (passageiro != null) {
@@ -497,11 +497,11 @@ public class Sistema {
         }
     }
 
-    public void listarPassageiros() {
+    private void listarPassageiros() {
         this.listarPessoas(passageiros, "Passageiro(s)");
     }
 
-    public void cadastrarCarona() {
+    private void cadastrarCarona() {
         Passageiro passageiro = this.selecionarPassageiro();
 
         System.out.println("Origem:");
@@ -519,7 +519,7 @@ public class Sistema {
         this.gerenciadorCaronas.cadastrarCarona(passageiro, origem, destino, motoristas);
     }
 
-    public void agendarCarona() {
+    private void agendarCarona() {
         Passageiro passageiro = this.selecionarPassageiro();
 
         System.out.println("Origem:");
@@ -553,31 +553,31 @@ public class Sistema {
         this.gerenciadorCaronas.agendarCarona(passageiro, origem, destino, inicio, motoristas);
     }
 
-    public void verificarStatusCarona() {
+    private void verificarStatusCarona() {
 
     }
 
-    public void finalizarCarona() {
+    private void finalizarCarona() {
 
     }
 
-    public void listarCaronasAgendadas() {
+    private void listarCaronasAgendadas() {
 		this.gerenciadorCaronas.listarCaronas(this.gerenciadorCaronas.getCaronasAgendadas());
     }
 
-    public void listarCaronasEmAndamento() {
+    private void listarCaronasEmAndamento() {
 		this.gerenciadorCaronas.listarCaronas(this.gerenciadorCaronas.getCaronasEmAndamento());
     }
 
-    public void listarCaronasFinalizadas() {
+    private void listarCaronasFinalizadas() {
 		this.gerenciadorCaronas.listarCaronas(this.gerenciadorCaronas.getCaronasFinalizadas());
     }
 
-    public void atualizarSistema() {
+    private void atualizarSistema() {
 
     }
 
-    public void encerrarSistema() {
+    private void encerrarSistema() {
         System.out.println("Encerrando sistema...");
 
         executando = false;
