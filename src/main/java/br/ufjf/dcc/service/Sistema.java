@@ -426,7 +426,16 @@ public class Sistema {
     }
 
     public void cadastrarPassageiro() {
+        String nome = lerTexto("Nome: ");
+        String cpf = lerTexto("CPF: ");
 
+        Endereco endereco = this.cadastrarEndereco();
+
+        Passageiro passageiro = new Passageiro(nome, cpf, endereco);
+
+        this.passageiros.add(passageiro);
+
+        System.out.println("Passageiro cadastrado com sucesso.");
     }
 
     public void exibirPassageiro() {
