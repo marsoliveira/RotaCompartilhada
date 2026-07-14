@@ -7,7 +7,6 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-import br.ufjf.dcc.model.Carona;
 import br.ufjf.dcc.model.Endereco;
 import br.ufjf.dcc.model.GerenciadorCaronas;
 import br.ufjf.dcc.model.Motorista;
@@ -23,9 +22,6 @@ public class Sistema {
     private List<Motorista> motoristas;
     private List<Passageiro> passageiros;
     private GerenciadorCaronas gerenciadorCaronas;
-    private List<Carona> agendadas;
-    private List<Carona> emAndamento;
-    private List<Carona> finalizadas;
     private boolean executando;
     private Scanner leitor = new Scanner(System.in);
 
@@ -557,8 +553,8 @@ public class Sistema {
         this.gerenciadorCaronas.agendarCarona(passageiro, origem, destino, inicio, motoristas);
     }
 
-    public boolean verificarStatusCarona() {
-        return false;
+    public void verificarStatusCarona() {
+
     }
 
     public void finalizarCarona() {
@@ -566,15 +562,15 @@ public class Sistema {
     }
 
     public void listarCaronasAgendadas() {
-
+		this.gerenciadorCaronas.listarCaronas(this.gerenciadorCaronas.getCaronasAgendadas());
     }
 
     public void listarCaronasEmAndamento() {
-
+		this.gerenciadorCaronas.listarCaronas(this.gerenciadorCaronas.getCaronasEmAndamento());
     }
 
     public void listarCaronasFinalizadas() {
-
+		this.gerenciadorCaronas.listarCaronas(this.gerenciadorCaronas.getCaronasFinalizadas());
     }
 
     public void atualizarSistema() {

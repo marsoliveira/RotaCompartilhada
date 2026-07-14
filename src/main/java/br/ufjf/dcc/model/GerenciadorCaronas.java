@@ -151,4 +151,16 @@ public class GerenciadorCaronas {
 
         caronasAgendadas.add(carona);
     }
+
+	public void listarCaronas(List<Carona> caronas) {
+		for (Carona carona : caronas) {
+			System.out.println("Motorista: " + carona.getMotorista().getNome());
+			System.out.println("Passageiro: " + carona.getPassageiro().getNome());
+			System.out.println("Origem: " + carona.getOrigem().toString());
+			System.out.println("Destino: " + carona.getDestino().toString());
+			System.out.println("Início: " + carona.getInicio().toString());
+			System.out.println("Fim: " + carona.getFim().toString());
+			System.out.println("Status: " + carona.getStatus().getDescricao());
+		}
+	}
 }
