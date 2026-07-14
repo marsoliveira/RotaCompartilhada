@@ -1,6 +1,7 @@
 package br.ufjf.dcc.service;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -523,7 +524,37 @@ public class Sistema {
     }
 
     public void agendarCarona() {
+        Passageiro passageiro = this.selecionarPassageiro();
 
+        System.out.println("Origem:");
+        Endereco origem = this.cadastrarEndereco();
+
+        System.out.println("Destino:");
+        Endereco destino = this.cadastrarEndereco();
+
+        if (origem.equals(destino)) {
+            System.out.println("Origem e destino não podem ser iguais.");
+
+            return;
+        }
+
+        int dia = lerInteiro("Dia: ");
+        int mes = lerInteiro("Mês: ");
+        int ano = lerInteiro("Ano: ");
+        int hora = lerInteiro("Hora: ");
+        int minuto = lerInteiro("Minuto: ");
+
+        LocalDateTime inicio;
+
+        try {
+            inicio = LocalDateTime.of(ano, mes, dia, hora, minuto);
+        } catch (Exception e) {
+            System.out.println("Data inválida.");
+
+            return;
+        }
+
+        this.gerenciadorCaronas.agendarCarona(passageiro, origem, destino, inicio, motoristas);
     }
 
     public boolean verificarStatusCarona() {
