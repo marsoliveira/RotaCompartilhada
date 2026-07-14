@@ -186,7 +186,7 @@ public class Sistema {
         for (int i = 0; i < pessoas.size(); i++) {
             Pessoa pessoa = pessoas.get(i);
 
-            System.out.println((i + 1) + ". " + pessoa.getNome() + " - CPF: " + pessoa.getCpf());
+            System.out.println((i + 1) + ". " + pessoa.getNome());
         }
 
         int opcao = lerInteiro("Escolha uma opção: ");
