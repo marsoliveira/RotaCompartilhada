@@ -501,7 +501,7 @@ public class Sistema {
     }
 
     public void listarPassageiros() {
-
+        this.listarPessoas(passageiros, "Passageiro(s)");
     }
 
     public void cadastrarCarona() {
