@@ -305,7 +305,7 @@ public class Sistema {
         return endereco;
     }
 
-	private Veiculo cadastrarVeiculo() {
+    private Veiculo cadastrarVeiculo() {
         String nomeVeiculo = lerTexto("Nome do veículo: ");
         String modeloVeiculo = lerTexto("Modelo do veículo: ");
         String placaVeiculo = lerTexto("Placa do veículo: ");
@@ -326,16 +326,16 @@ public class Sistema {
 
         Veiculo veiculo = new Veiculo(nomeVeiculo, modeloVeiculo, placaVeiculo, chassiVeiculo, anoFabricacaoVeiculo, corVeiculo);
 
-		return veiculo;
-	}
+        return veiculo;
+    }
 
     public void cadastrarMotorista() {
         String nome = lerTexto("Nome: ");
         String cpf = lerTexto("CPF: ");
 
-		Endereco endereco = this.cadastrarEndereco();
+        Endereco endereco = this.cadastrarEndereco();
 
-		Veiculo veiculo = this.cadastrarVeiculo();
+        Veiculo veiculo = this.cadastrarVeiculo();
 
         Motorista motorista = new Motorista(nome, cpf, endereco, veiculo, true);
 
@@ -351,7 +351,54 @@ public class Sistema {
     }
 
     public void editarMotorista() {
+        Motorista motorista = this.selecionarMotorista();
 
+        if (motorista != null) {
+            System.out.println("Escolha o atributo a ser editado:");
+            System.out.println("1. Nome");
+            System.out.println("2. CPF");
+            System.out.println("3. Endereço");
+            System.out.println("4. Veículo");
+            System.out.println("5. Todos os atributos");
+
+            int opcao = lerInteiro("Escolha uma opção: ");
+
+            try {
+                switch (opcao) {
+
+                    case 1 ->
+                        motorista.setNome(lerTexto("Nome: "));
+
+                    case 2 ->
+                        motorista.setCpf(lerTexto("CPF: "));
+
+                    case 3 ->
+                        motorista.setEndereco(this.cadastrarEndereco());
+
+                    case 4 ->
+                        motorista.setVeiculo(this.cadastrarVeiculo());
+
+                    case 5 -> {
+                        String nome = lerTexto("Nome: ");
+                        String cpf = lerTexto("CPF: ");
+                        motorista.setNome(nome);
+                        motorista.setCpf(cpf);
+                        motorista.setEndereco(this.cadastrarEndereco());
+                        motorista.setVeiculo(this.cadastrarVeiculo());
+                    }
+
+                    default -> {
+                        System.out.println("Opção inválida.");
+                        return;
+                    }
+                }
+
+                System.out.println("Atributo(s) atualizado com sucesso.");
+
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     public void removerMotorista() {
