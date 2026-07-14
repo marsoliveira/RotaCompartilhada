@@ -10,6 +10,7 @@ import br.ufjf.dcc.model.Carona;
 import br.ufjf.dcc.model.Endereco;
 import br.ufjf.dcc.model.Motorista;
 import br.ufjf.dcc.model.Passageiro;
+import br.ufjf.dcc.model.Pessoa;
 import br.ufjf.dcc.model.Veiculo;
 import br.ufjf.dcc.model.enums.TipoLogradouro;
 import br.ufjf.dcc.util.csv.ConversorMotoristaCSV;
@@ -25,7 +26,7 @@ public class Sistema {
     private boolean executando;
     private Scanner leitor = new Scanner(System.in);
 
-	private static final int LIM_ANO_FABRICACAO = 2016;
+    private static final int LIM_ANO_FABRICACAO = 2016;
 
     public Sistema() {
         this.motoristas = new ArrayList<>();
@@ -171,6 +172,47 @@ public class Sistema {
         return texto;
     }
 
+    private <T extends Pessoa> T selecionarPessoa(List<T> pessoas, String tipoPessoa) {
+
+        if (pessoas.isEmpty()) {
+            System.out.println("Nenhum " + tipoPessoa + " cadastrado.");
+
+            return null;
+        }
+
+        System.out.println("0. Voltar");
+        System.out.println(tipoPessoa + " cadastrados:");
+
+        for (int i = 0; i < pessoas.size(); i++) {
+            Pessoa pessoa = pessoas.get(i);
+
+            System.out.println((i + 1) + ". " + pessoa.getNome() + " - CPF: " + pessoa.getCpf());
+        }
+
+        int opcao = lerInteiro("Escolha uma opção: ");
+
+        if (opcao == 0) {
+            return null;
+        }
+
+        if (opcao < 1 || opcao > pessoas.size()) {
+
+            System.out.println(tipoPessoa + " inválido.");
+
+            return null;
+        }
+
+        return pessoas.get(opcao - 1);
+    }
+
+    private Motorista selecionarMotorista() {
+        return selecionarPessoa(this.motoristas, "Motorista");
+    }
+
+    private Passageiro selecionarPassageiro() {
+        return selecionarPessoa(this.passageiros, "Passageiro");
+    }
+
     public TipoLogradouro escolherTipoLogradouro() {
         System.out.println("1. " + TipoLogradouro.RUA.getDescricao());
         System.out.println("2. " + TipoLogradouro.AVENIDA.getDescricao());
@@ -291,7 +333,9 @@ public class Sistema {
     }
 
     public void exibirMotorista() {
+        Motorista motorista = this.selecionarMotorista();
 
+        motorista.exibirDados();
     }
 
     public void editarMotorista() {
