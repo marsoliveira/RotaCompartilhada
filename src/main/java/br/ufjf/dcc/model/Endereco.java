@@ -87,4 +87,16 @@ public class Endereco {
 	public String getCep() {
 		return cep;
 	}
+
+	public void exibirEndereco() {
+		System.out.println("Dados do endereço:");
+		System.out.println("Tipo de Logradouro: " + this.tipoLogradouro);
+		System.out.println("Nome do Logradouro: " + this.nomeLogradouro);
+		System.out.println("Número: " + this.numero);
+		System.out.println("Bairro: " + this.bairro);
+		System.out.println("Cidade: " + this.cidade);
+		System.out.println("Estado: " + this.estado);
+		System.out.println("País: " + this.pais);
+		System.out.println("CEP: " + this.cep);
+	}
 }
