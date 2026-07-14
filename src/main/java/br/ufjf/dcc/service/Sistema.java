@@ -445,7 +445,49 @@ public class Sistema {
     }
 
     public void editarPassageiro() {
+        Passageiro passageiro = this.selecionarPassageiro();
 
+        if (passageiro != null) {
+            System.out.println("Escolha o atributo a ser editado:");
+            System.out.println("1. Nome");
+            System.out.println("2. CPF");
+            System.out.println("3. Endereço");
+            System.out.println("4. Todos os atributos");
+
+            int opcao = lerInteiro("Escolha uma opção: ");
+
+            try {
+                switch (opcao) {
+
+                    case 1 ->
+                        passageiro.setNome(lerTexto("Nome: "));
+
+                    case 2 ->
+                        passageiro.setCpf(lerTexto("CPF: "));
+
+                    case 3 ->
+                        passageiro.setEndereco(this.cadastrarEndereco());
+
+                    case 4 -> {
+                        String nome = lerTexto("Nome: ");
+                        String cpf = lerTexto("CPF: ");
+                        passageiro.setNome(nome);
+                        passageiro.setCpf(cpf);
+                        passageiro.setEndereco(this.cadastrarEndereco());
+                    }
+
+                    default -> {
+                        System.out.println("Opção inválida.");
+                        return;
+                    }
+                }
+
+                System.out.println("Atributo(s) atualizado com sucesso.");
+
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     public void removerPassageiro() {
