@@ -289,10 +289,7 @@ public class Sistema {
         }
     }
 
-    public void cadastrarMotorista() {
-        String nome = lerTexto("Nome: ");
-        String cpf = lerTexto("CPF: ");
-
+    private Endereco cadastrarEndereco() {
         TipoLogradouro tipoLogradouro = this.escolherTipoLogradouro();
 
         String nomeLogradouro = lerTexto("Nome do logradouro: ");
@@ -305,6 +302,10 @@ public class Sistema {
 
         Endereco endereco = new Endereco(tipoLogradouro, nomeLogradouro, numero, bairro, cidade, estado, pais, cep);
 
+        return endereco;
+    }
+
+	private Veiculo cadastrarVeiculo() {
         String nomeVeiculo = lerTexto("Nome do veículo: ");
         String modeloVeiculo = lerTexto("Modelo do veículo: ");
         String placaVeiculo = lerTexto("Placa do veículo: ");
@@ -324,6 +325,17 @@ public class Sistema {
         String corVeiculo = lerTexto("Cor do veículo: ");
 
         Veiculo veiculo = new Veiculo(nomeVeiculo, modeloVeiculo, placaVeiculo, chassiVeiculo, anoFabricacaoVeiculo, corVeiculo);
+
+		return veiculo;
+	}
+
+    public void cadastrarMotorista() {
+        String nome = lerTexto("Nome: ");
+        String cpf = lerTexto("CPF: ");
+
+		Endereco endereco = this.cadastrarEndereco();
+
+		Veiculo veiculo = this.cadastrarVeiculo();
 
         Motorista motorista = new Motorista(nome, cpf, endereco, veiculo, true);
 
