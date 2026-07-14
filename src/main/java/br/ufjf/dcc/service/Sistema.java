@@ -172,6 +172,22 @@ public class Sistema {
         return texto;
     }
 
+    private <T extends Pessoa> void listarPessoas(List<T> pessoas, String tipoPessoa) {
+
+        if (pessoas.isEmpty()) {
+            System.out.println("Nenhum " + tipoPessoa + " cadastrado.");
+            return;
+        }
+
+        System.out.println(tipoPessoa + " cadastrados:");
+
+        for (int i = 0; i < pessoas.size(); i++) {
+            Pessoa pessoa = pessoas.get(i);
+
+            System.out.println((i + 1) + ". " + pessoa.getNome());
+        }
+    }
+
     private <T extends Pessoa> T selecionarPessoa(List<T> pessoas, String tipoPessoa) {
 
         if (pessoas.isEmpty()) {
@@ -181,13 +197,7 @@ public class Sistema {
         }
 
         System.out.println("0. Voltar");
-        System.out.println(tipoPessoa + " cadastrados:");
-
-        for (int i = 0; i < pessoas.size(); i++) {
-            Pessoa pessoa = pessoas.get(i);
-
-            System.out.println((i + 1) + ". " + pessoa.getNome());
-        }
+        this.listarPessoas(pessoas, tipoPessoa);
 
         int opcao = lerInteiro("Escolha uma opção: ");
 
@@ -206,11 +216,11 @@ public class Sistema {
     }
 
     private Motorista selecionarMotorista() {
-        return selecionarPessoa(this.motoristas, "Motorista");
+        return selecionarPessoa(this.motoristas, "Motorista(s)");
     }
 
     private Passageiro selecionarPassageiro() {
-        return selecionarPessoa(this.passageiros, "Passageiro");
+        return selecionarPessoa(this.passageiros, "Passageiro(s)");
     }
 
     public TipoLogradouro escolherTipoLogradouro() {
