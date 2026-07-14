@@ -73,4 +73,14 @@ public class Veiculo {
 	public boolean validarAnoFabricacao(int anoFabricacao) {
 		return anoFabricacao < LIM_ANO_FABRICACAO;
 	}
+
+	public void exibirDados() {
+		System.out.println("Dados do veículo:");
+		System.out.println("Nome: " + this.nome);
+		System.out.println("Modelo: " + this.modelo);
+		System.out.println("Placa: " + this.placa);
+		System.out.println("Chassi: " + this.chassi);
+		System.out.println("Ano de Fabricação: " + this.anoFabricacao);
+		System.out.println("Cor: " + this.cor);
+	}
 }
