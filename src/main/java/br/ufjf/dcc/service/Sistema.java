@@ -439,7 +439,9 @@ public class Sistema {
     }
 
     public void exibirPassageiro() {
+        Passageiro passageiro = this.selecionarPassageiro();
 
+        passageiro.exibirDados();
     }
 
     public void editarPassageiro() {
