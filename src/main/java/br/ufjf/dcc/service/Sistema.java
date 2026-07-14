@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import br.ufjf.dcc.model.Carona;
 import br.ufjf.dcc.model.Endereco;
+import br.ufjf.dcc.model.GerenciadorCaronas;
 import br.ufjf.dcc.model.Motorista;
 import br.ufjf.dcc.model.Passageiro;
 import br.ufjf.dcc.model.Pessoa;
@@ -20,6 +21,7 @@ public class Sistema {
 
     private List<Motorista> motoristas;
     private List<Passageiro> passageiros;
+    private GerenciadorCaronas gerenciadorCaronas;
     private List<Carona> agendadas;
     private List<Carona> emAndamento;
     private List<Carona> finalizadas;
@@ -31,9 +33,7 @@ public class Sistema {
     public Sistema() {
         this.motoristas = new ArrayList<>();
         this.passageiros = new ArrayList<>();
-        this.agendadas = new ArrayList<>();
-        this.emAndamento = new ArrayList<>();
-        this.finalizadas = new ArrayList<>();
+        this.gerenciadorCaronas = new GerenciadorCaronas();
         this.executando = true;
 
         try {
@@ -505,7 +505,21 @@ public class Sistema {
     }
 
     public void cadastrarCarona() {
+        Passageiro passageiro = this.selecionarPassageiro();
 
+        System.out.println("Origem:");
+        Endereco origem = this.cadastrarEndereco();
+
+        System.out.println("Destino:");
+        Endereco destino = this.cadastrarEndereco();
+
+        if (origem.equals(destino)) {
+            System.out.println("Origem e destino não podem ser iguais.");
+
+            return;
+        }
+
+        this.gerenciadorCaronas.cadastrarCarona(passageiro, origem, destino, motoristas);
     }
 
     public void agendarCarona() {
