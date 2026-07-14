@@ -351,7 +351,7 @@ public class Sistema {
 
         this.motoristas.add(motorista);
 
-        System.out.println("Motorista cadastrado com sucesso!");
+        System.out.println("Motorista cadastrado com sucesso.");
     }
 
     public void exibirMotorista() {
@@ -412,7 +412,13 @@ public class Sistema {
     }
 
     public void removerMotorista() {
+        Motorista motorista = this.selecionarMotorista();
 
+        if (motorista != null) {
+            this.motoristas.remove(motorista);
+
+            System.out.println("Motorista removido com sucesso.");
+        }
     }
 
     public void listarMotoristas() {
