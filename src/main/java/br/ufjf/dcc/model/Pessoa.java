@@ -35,4 +35,10 @@ public class Pessoa {
 	public Endereco getEndereco() {
 		return endereco;
 	}
+
+	public void exibirDados() {
+		System.out.println("Nome: " + nome);
+		System.out.println("CPF: " + cpf);
+		endereco.exibirEndereco();
+	}
 }

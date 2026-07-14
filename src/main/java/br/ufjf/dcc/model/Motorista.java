@@ -11,19 +11,26 @@ public class Motorista extends Pessoa {
         this.disponivel = true;
     }
 
-	public void setVeiculo(Veiculo veiculo) {
-		this.veiculo = veiculo;
-	}
+    public void setVeiculo(Veiculo veiculo) {
+        this.veiculo = veiculo;
+    }
 
-	public Veiculo getVeiculo() {
-		return veiculo;
-	}
+    public Veiculo getVeiculo() {
+        return veiculo;
+    }
 
-	public void setDisponivel(boolean disponivel) {
-		this.disponivel = disponivel;
-	}
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
+    }
 
-	public boolean estaDisponivel() {
-		return disponivel;
-	}
+    public boolean estaDisponivel() {
+        return disponivel;
+    }
+
+    @Override
+    public void exibirDados() {
+        super.exibirDados();
+        this.veiculo.exibirDados();
+        System.out.println("Disponível: " + (this.estaDisponivel() ? "Sim" : "Não"));
+    }
 }
