@@ -59,12 +59,11 @@ public class Sistema {
         System.out.println("10. Listar Passageiros");
         System.out.println("11. Cadastrar Carona");
         System.out.println("12. Agendar Carona");
-        System.out.println("13. Finalizar Carona");
-        System.out.println("14. Verificar Status da Carona");
-        System.out.println("15. Listar Caronas Agendadas");
-        System.out.println("16. Listar Caronas em Andamento");
-        System.out.println("17. Listar Caronas Finalizadas");
-        System.out.println("18. Encerrar Sistema");
+        System.out.println("13. Verificar Status da Carona");
+        System.out.println("14. Listar Caronas Agendadas");
+        System.out.println("15. Listar Caronas em Andamento");
+        System.out.println("16. Listar Caronas Finalizadas");
+        System.out.println("17. Encerrar Sistema");
     }
 
     public void iniciar() {
@@ -115,21 +114,18 @@ public class Sistema {
                     this.agendarCarona();
 
                 case 13 ->
-                    this.finalizarCarona();
-
-                case 14 ->
                     this.verificarStatusCarona();
 
-                case 15 ->
+                case 14 ->
                     this.listarCaronasAgendadas();
 
-                case 16 ->
+                case 15 ->
                     this.listarCaronasEmAndamento();
 
-                case 17 ->
+                case 16 ->
                     this.listarCaronasFinalizadas();
 
-                case 18 ->
+                case 17 ->
                     this.encerrarSistema();
 
                 default ->
@@ -559,10 +555,6 @@ public class Sistema {
     }
 
     private void verificarStatusCarona() {
-
-    }
-
-    private void finalizarCarona() {
 
     }
 
