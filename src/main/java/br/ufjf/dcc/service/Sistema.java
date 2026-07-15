@@ -1,6 +1,7 @@
 package br.ufjf.dcc.service;
 
 import java.io.IOException;
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -196,8 +197,8 @@ public class Sistema {
 
         this.listarPessoas(pessoas, tipoPessoa);
 
-        int opcao = lerInteiro("Escolha uma opção: ");
         System.out.println("0. Voltar");
+        int opcao = lerInteiro("Escolha uma opção: ");
 
         if (opcao == 0) {
             return null;
@@ -242,78 +243,79 @@ public class Sistema {
 
         int opcao = lerInteiro("Escolha uma opção: ");
 
-        switch (opcao) {
-            case 0 -> {
-                return null;
-            }
+        while (true) {
+            switch (opcao) {
+                case 0 -> {
+                    return null;
+                }
 
-            case 1 -> {
-                return TipoLogradouro.RUA;
-            }
+                case 1 -> {
+                    return TipoLogradouro.RUA;
+                }
 
-            case 2 -> {
-                return TipoLogradouro.AVENIDA;
-            }
+                case 2 -> {
+                    return TipoLogradouro.AVENIDA;
+                }
 
-            case 3 -> {
-                return TipoLogradouro.ALAMEDA;
-            }
+                case 3 -> {
+                    return TipoLogradouro.ALAMEDA;
+                }
 
-            case 4 -> {
-                return TipoLogradouro.PRACA;
-            }
+                case 4 -> {
+                    return TipoLogradouro.PRACA;
+                }
 
-            case 5 -> {
-                return TipoLogradouro.TRAVESSA;
-            }
+                case 5 -> {
+                    return TipoLogradouro.TRAVESSA;
+                }
 
-            case 6 -> {
-                return TipoLogradouro.RODOVIA;
-            }
+                case 6 -> {
+                    return TipoLogradouro.RODOVIA;
+                }
 
-            case 7 -> {
-                return TipoLogradouro.ESTRADA;
-            }
+                case 7 -> {
+                    return TipoLogradouro.ESTRADA;
+                }
 
-            case 8 -> {
-                return TipoLogradouro.BECO;
-            }
+                case 8 -> {
+                    return TipoLogradouro.BECO;
+                }
 
-            case 9 -> {
-                return TipoLogradouro.BALNEARIO;
-            }
+                case 9 -> {
+                    return TipoLogradouro.BALNEARIO;
+                }
 
-            case 10 -> {
-                return TipoLogradouro.BOSQUE;
-            }
+                case 10 -> {
+                    return TipoLogradouro.BOSQUE;
+                }
 
-            case 11 -> {
-                return TipoLogradouro.CAIS;
-            }
+                case 11 -> {
+                    return TipoLogradouro.CAIS;
+                }
 
-            case 12 -> {
-                return TipoLogradouro.CALCADA;
-            }
+                case 12 -> {
+                    return TipoLogradouro.CALCADA;
+                }
 
-            case 13 -> {
-                return TipoLogradouro.LARGO;
-            }
+                case 13 -> {
+                    return TipoLogradouro.LARGO;
+                }
 
-            case 14 -> {
-                return TipoLogradouro.VIADUTO;
-            }
+                case 14 -> {
+                    return TipoLogradouro.VIADUTO;
+                }
 
-            case 15 -> {
-                return TipoLogradouro.VIELA;
-            }
+                case 15 -> {
+                    return TipoLogradouro.VIELA;
+                }
 
-            case 16 -> {
-                return TipoLogradouro.PASSARELA;
-            }
+                case 16 -> {
+                    return TipoLogradouro.PASSARELA;
+                }
 
-            default -> {
-                System.out.println("Opção inválida. Escolhendo RUA como padrão.");
-                return TipoLogradouro.RUA;
+                default -> {
+                    System.out.println("Opção inválida.");
+                }
             }
         }
     }
@@ -321,7 +323,7 @@ public class Sistema {
     private Endereco cadastrarEndereco() {
         TipoLogradouro tipoLogradouro = this.escolherTipoLogradouro();
 
-        if (tipoLogradouro != null) {
+        if (tipoLogradouro == null) {
             return null;
         }
 
@@ -593,8 +595,13 @@ public class Sistema {
 
                 try {
                     inicio = LocalDateTime.of(ano, mes, dia, hora, minuto);
-                } catch (Exception e) {
-                    System.out.println("Data inválida.");
+
+                    if (!inicio.isAfter(LocalDateTime.now())) {
+                        System.out.println("A data deve ser futura.");
+                        return;
+                    }
+                } catch (DateTimeException e) {
+                    System.out.println("Data inválida: " + e.getMessage());
 
                     return;
                 }
