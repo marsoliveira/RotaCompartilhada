@@ -611,8 +611,60 @@ public class Sistema {
         }
     }
 
-    private void verificarStatusCarona() {
+    private Carona selecionarCarona() {
+        List<Carona> caronas = new ArrayList<>();
 
+        caronas.addAll(gerenciadorCaronas.getCaronasAgendadas());
+        caronas.addAll(gerenciadorCaronas.getCaronasEmAndamento());
+        caronas.addAll(gerenciadorCaronas.getCaronasFinalizadas());
+
+        if (caronas.isEmpty()) {
+            System.out.println("Nenhuma carona cadastrada.");
+
+            return null;
+        }
+
+        for (int i = 0; i < caronas.size(); i++) {
+            Carona carona = caronas.get(i);
+
+            System.out.println((i + 1) + ". " + carona.getPassageiro().getNome() + " - " + carona.getInicio());
+        }
+
+        System.out.println("0. Voltar");
+
+        int opcao = lerInteiro("Escolha uma opção: ");
+
+        if (opcao == 0) {
+            return null;
+        }
+
+        if (opcao < 1 || opcao > caronas.size()) {
+
+            System.out.println("Carona inválida.");
+
+            return null;
+        }
+
+        return caronas.get(opcao - 1);
+    }
+
+    private void verificarStatusCarona() {
+        atualizarSistema();
+        Carona carona = selecionarCarona();
+
+        if (carona != null) {
+            if (gerenciadorCaronas.getCaronasAgendadas().contains(carona)) {
+                System.out.println("Status: Agendada");
+                System.out.println("Início: " + carona.getInicio());
+            } else if (gerenciadorCaronas.getCaronasEmAndamento().contains(carona)) {
+                System.out.println("Status: Em andamento");
+                System.out.println("Término previsto: " + carona.getFim());
+            } else if (gerenciadorCaronas.getCaronasFinalizadas().contains(carona)) {
+                System.out.println("Status: Finalizada");
+            } else {
+                System.out.println("Carona não encontrada.");
+            }
+        }
     }
 
     private void listarCaronasAgendadas() {
