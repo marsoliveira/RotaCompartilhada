@@ -1,9 +1,12 @@
 package br.ufjf.dcc.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import br.ufjf.dcc.model.enums.StatusCarona;
 
 public class GerenciadorCaronas {
 
@@ -117,6 +120,8 @@ public class GerenciadorCaronas {
 
         Carona carona = new Carona(motorista, passageiro, origem, destino, inicio, fim);
 
+		carona.setStatus(StatusCarona.EM_ANDAMENTO);
+
         this.caronasEmAndamento.add(carona);
     }
 
@@ -149,6 +154,8 @@ public class GerenciadorCaronas {
 
         Carona carona = new Carona(motorista, passageiro, origem, destino, inicioEscolhido, fim);
 
+		carona.setStatus(StatusCarona.AGENDADA);
+
         caronasAgendadas.add(carona);
     }
 
@@ -159,13 +166,15 @@ public class GerenciadorCaronas {
             return;
         }
 
+		DateTimeFormatter dataFormatada = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
         for (Carona carona : caronas) {
             System.out.println("Motorista: " + carona.getMotorista().getNome());
             System.out.println("Passageiro: " + carona.getPassageiro().getNome());
             System.out.println("Origem: " + carona.getOrigem().toString());
             System.out.println("Destino: " + carona.getDestino().toString());
-            System.out.println("Início: " + carona.getInicio().toString());
-            System.out.println("Fim: " + carona.getFim().toString());
+            System.out.println("Início: " + carona.getInicio().format(dataFormatada));
+            System.out.println("Fim: " + carona.getFim().format(dataFormatada));
             System.out.println("Status: " + carona.getStatus().getDescricao());
         }
     }

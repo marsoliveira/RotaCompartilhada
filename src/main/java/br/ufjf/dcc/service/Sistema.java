@@ -222,28 +222,28 @@ public class Sistema {
         return selecionarPessoa(this.passageiros, "Passageiro(s)");
     }
 
-    private TipoLogradouro escolherTipoLogradouro() {
-        System.out.println("0. Voltar");
-        System.out.println("1. " + TipoLogradouro.RUA.getDescricao());
-        System.out.println("2. " + TipoLogradouro.AVENIDA.getDescricao());
-        System.out.println("3. " + TipoLogradouro.ALAMEDA.getDescricao());
-        System.out.println("4. " + TipoLogradouro.PRACA.getDescricao());
-        System.out.println("5. " + TipoLogradouro.TRAVESSA.getDescricao());
-        System.out.println("6. " + TipoLogradouro.RODOVIA.getDescricao());
-        System.out.println("7. " + TipoLogradouro.ESTRADA.getDescricao());
-        System.out.println("8. " + TipoLogradouro.BECO.getDescricao());
-        System.out.println("9. " + TipoLogradouro.BALNEARIO.getDescricao());
-        System.out.println("10. " + TipoLogradouro.BOSQUE.getDescricao());
-        System.out.println("11. " + TipoLogradouro.CAIS.getDescricao());
-        System.out.println("12. " + TipoLogradouro.CALCADA.getDescricao());
-        System.out.println("13. " + TipoLogradouro.LARGO.getDescricao());
-        System.out.println("14. " + TipoLogradouro.VIADUTO.getDescricao());
-        System.out.println("15. " + TipoLogradouro.VIELA.getDescricao());
-        System.out.println("16. " + TipoLogradouro.PASSARELA.getDescricao());
-
-        int opcao = lerInteiro("Escolha uma opção: ");
-
+    private TipoLogradouro selecionarTipoLogradouro() {
         while (true) {
+            System.out.println("0. Voltar");
+            System.out.println("1. " + TipoLogradouro.RUA.getDescricao());
+            System.out.println("2. " + TipoLogradouro.AVENIDA.getDescricao());
+            System.out.println("3. " + TipoLogradouro.ALAMEDA.getDescricao());
+            System.out.println("4. " + TipoLogradouro.PRACA.getDescricao());
+            System.out.println("5. " + TipoLogradouro.TRAVESSA.getDescricao());
+            System.out.println("6. " + TipoLogradouro.RODOVIA.getDescricao());
+            System.out.println("7. " + TipoLogradouro.ESTRADA.getDescricao());
+            System.out.println("8. " + TipoLogradouro.BECO.getDescricao());
+            System.out.println("9. " + TipoLogradouro.BALNEARIO.getDescricao());
+            System.out.println("10. " + TipoLogradouro.BOSQUE.getDescricao());
+            System.out.println("11. " + TipoLogradouro.CAIS.getDescricao());
+            System.out.println("12. " + TipoLogradouro.CALCADA.getDescricao());
+            System.out.println("13. " + TipoLogradouro.LARGO.getDescricao());
+            System.out.println("14. " + TipoLogradouro.VIADUTO.getDescricao());
+            System.out.println("15. " + TipoLogradouro.VIELA.getDescricao());
+            System.out.println("16. " + TipoLogradouro.PASSARELA.getDescricao());
+
+            int opcao = lerInteiro("Escolha uma opção: ");
+
             switch (opcao) {
                 case 0 -> {
                     return null;
@@ -321,7 +321,7 @@ public class Sistema {
     }
 
     private Endereco cadastrarEndereco() {
-        TipoLogradouro tipoLogradouro = this.escolherTipoLogradouro();
+        TipoLogradouro tipoLogradouro = this.selecionarTipoLogradouro();
 
         if (tipoLogradouro == null) {
             return null;
@@ -550,20 +550,22 @@ public class Sistema {
     private void cadastrarCarona() {
         Passageiro passageiro = this.selecionarPassageiro();
 
-        System.out.println("Origem:");
-        Endereco origem = this.cadastrarEndereco();
+        if (passageiro != null) {
+            System.out.println("Origem:");
+            Endereco origem = this.cadastrarEndereco();
 
-        if (origem != null) {
-            System.out.println("Destino:");
-            Endereco destino = this.cadastrarEndereco();
+            if (origem != null) {
+                System.out.println("Destino:");
+                Endereco destino = this.cadastrarEndereco();
 
-            if (destino != null) {
-                if (origem.equals(destino)) {
-                    System.out.println("Origem e destino não podem ser iguais.");
+                if (destino != null) {
+                    if (origem.equals(destino)) {
+                        System.out.println("Origem e destino não podem ser iguais.");
 
-                    return;
+                        return;
+                    }
+                    this.gerenciadorCaronas.cadastrarCarona(passageiro, origem, destino, motoristas);
                 }
-                this.gerenciadorCaronas.cadastrarCarona(passageiro, origem, destino, motoristas);
             }
         }
     }
@@ -571,42 +573,44 @@ public class Sistema {
     private void agendarCarona() {
         Passageiro passageiro = this.selecionarPassageiro();
 
-        System.out.println("Origem:");
-        Endereco origem = this.cadastrarEndereco();
+        if (passageiro != null) {
+            System.out.println("Origem:");
+            Endereco origem = this.cadastrarEndereco();
 
-        if (origem != null) {
-            System.out.println("Destino:");
-            Endereco destino = this.cadastrarEndereco();
+            if (origem != null) {
+                System.out.println("Destino:");
+                Endereco destino = this.cadastrarEndereco();
 
-            if (destino != null) {
-                if (origem.equals(destino)) {
-                    System.out.println("Origem e destino não podem ser iguais.");
+                if (destino != null) {
+                    if (origem.equals(destino)) {
+                        System.out.println("Origem e destino não podem ser iguais.");
 
-                    return;
-                }
-
-                int dia = lerInteiro("Dia: ");
-                int mes = lerInteiro("Mês: ");
-                int ano = lerInteiro("Ano: ");
-                int hora = lerInteiro("Hora: ");
-                int minuto = lerInteiro("Minuto: ");
-
-                LocalDateTime inicio;
-
-                try {
-                    inicio = LocalDateTime.of(ano, mes, dia, hora, minuto);
-
-                    if (!inicio.isAfter(LocalDateTime.now())) {
-                        System.out.println("A data deve ser futura.");
                         return;
                     }
-                } catch (DateTimeException e) {
-                    System.out.println("Data inválida: " + e.getMessage());
 
-                    return;
+                    int dia = lerInteiro("Dia: ");
+                    int mes = lerInteiro("Mês: ");
+                    int ano = lerInteiro("Ano: ");
+                    int hora = lerInteiro("Hora: ");
+                    int minuto = lerInteiro("Minuto: ");
+
+                    LocalDateTime inicio;
+
+                    try {
+                        inicio = LocalDateTime.of(ano, mes, dia, hora, minuto);
+
+                        if (!inicio.isAfter(LocalDateTime.now())) {
+                            System.out.println("A data deve ser futura.");
+                            return;
+                        }
+                    } catch (DateTimeException e) {
+                        System.out.println("Data inválida: " + e.getMessage());
+
+                        return;
+                    }
+
+                    this.gerenciadorCaronas.agendarCarona(passageiro, origem, destino, inicio, motoristas);
                 }
-
-                this.gerenciadorCaronas.agendarCarona(passageiro, origem, destino, inicio, motoristas);
             }
         }
     }

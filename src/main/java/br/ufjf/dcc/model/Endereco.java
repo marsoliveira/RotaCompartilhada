@@ -99,4 +99,9 @@ public class Endereco {
         System.out.println("País: " + this.pais);
         System.out.println("CEP: " + this.cep);
     }
+
+    @Override
+    public String toString() {
+        return tipoLogradouro + " " + nome + ", " + numero + ", " + bairro + ", " + cidade + " - " + estado;
+    }
 }
